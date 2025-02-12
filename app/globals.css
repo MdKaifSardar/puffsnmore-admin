@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.titleStyle {
+  @apply text-center font-bold text-4xl my-[30px];
+}
+
+.SecondaryTitleStyle {
+  @apply text-2xl underline flex justify-center;
+}
+.custom-shadow {
+  box-shadow: 0px 0px 5px 3px rgba(142, 142, 142, 0.2); /* Horizontal, Vertical, Blur Radius, Spread Radius, Color */
+}
