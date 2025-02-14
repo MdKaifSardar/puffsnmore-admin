@@ -39,12 +39,13 @@ export const uploadWebsiteBannerImages = async (images: any) => {
     formData.append("public_id", `${Date.now()}`);
 
     const response = await fetch(
-      "https://api.cloudinary.com/v1_1/dtxh3ew7s/image/upload",
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`,
       {
         method: "POST",
         body: formData,
       }
     );
+    // console.log(response);
     return response.json();
   });
 
@@ -93,7 +94,7 @@ export const uploadAppBannerImages = async (images: any) => {
     formData.append("public_id", `${Date.now()}`);
 
     const response = await fetch(
-      "https://api.cloudinary.com/v1_1/dtxh3ew7s/image/upload",
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`,
       {
         method: "POST",
         body: formData,

@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="">
       <ToastContainer />
       <Navbar />
     </div>

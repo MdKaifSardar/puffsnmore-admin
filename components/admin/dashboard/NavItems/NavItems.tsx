@@ -23,11 +23,11 @@ export const navItems = [
     icon: <ImUsers size={20} />,
     link: "/admin/dashboard/admins",
   },
-  {
-    name: "Vendors",
-    icon: <FaUsers size={20} />,
-    link: "/admin/dashboard/vendors",
-  },
+  // {
+  //   name: "Vendors",
+  //   icon: <FaUsers size={20} />,
+  //   link: "/admin/dashboard/vendors",
+  // },
   {
     name: "Coupons",
     icon: <RiCoupon3Fill size={20} />,

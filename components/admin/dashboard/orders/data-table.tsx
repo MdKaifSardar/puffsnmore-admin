@@ -147,13 +147,13 @@ function Row(props: any) {
                   <th>Qty</th>
                   <th>Price</th>
                   <th>Status</th>
-                  <th>Vendor Id</th>
+                  {/* <th>Vendor Id</th> */}
                 </tr>
               </thead>
               <tbody>
                 {row.products.map((p: any) => (
                   <tr key={p._id}>
-                    <td>
+                    {/* <td>
                       <div className="relative inline-block">
                         <img src={p.image} alt={p.name} className="w-24 h-24" />
                         {p.vendor && (
@@ -162,7 +162,7 @@ function Row(props: any) {
                           </div>
                         )}
                       </div>
-                    </td>
+                    </td> */}
                     <td>{p.name}</td>
                     <td>{p.size}</td>
                     <td>x{p.qty}</td>
@@ -199,7 +199,7 @@ function Row(props: any) {
                         ))}
                       </select>
                     </td>
-                    <td>{p.vendor ? p.vendor._id : "-"}</td>
+                    {/* <td>{p.vendor ? p.vendor._id : "-"}</td> */}
                   </tr>
                 ))}
 

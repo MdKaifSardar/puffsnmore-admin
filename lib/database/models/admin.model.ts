@@ -25,7 +25,7 @@ adminSchema.methods.getJWTToken = function () {
     expiresIn: "5d",
   });
 };
-// comparing the password for vendor
+// comparing the password for admin
 
 adminSchema.methods.comparePassword = async function (enteredPassword: string) {
   return await bcrypt.compare(enteredPassword, this.password);

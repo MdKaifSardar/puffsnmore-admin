@@ -5,23 +5,22 @@ import Product from "@/lib/database/models/product.model";
 import slugify from "slugify";
 import cloudinary from "cloudinary";
 import mongoose from "mongoose";
-// import { User } from "lucide-react";
-// const { ObjectId } = mongoose.Types;
+import { User } from "lucide-react";
+const { ObjectId } = mongoose.Types;
 
+// config our Cloudinary
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUNDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-const base64ToBuffer = (base: any) => {
-  const base64String = base.split(";base64,").pop();
-  return Buffer.from(base64String, "base64");
-};
-
+// creation of a product for admin
 export const createProduct = async (
-  images: any[],
-  sizes: Array<{ qty: number; price: number }>,
+  sku: string,
+  color: any,
+  images: [],
+  sizes: Array<{ size: string; qty: string; price: string }>,
   discount: number,
   name: string,
   description: string,
@@ -33,44 +32,11 @@ export const createProduct = async (
   subCategories: string[],
   benefits: Array<{ name: string }>,
   ingredients: Array<{ name: string }>,
-  parent: string | null,
+  parent: string,
   featured: boolean
 ) => {
   try {
     await connectToDatabase();
-
-    const uploadImagesToCloudinary = images.map(async (base64Image: any) => {
-      const buffer = base64ToBuffer(base64Image);
-      const formData = new FormData();
-      formData.append("file", new Blob([buffer], { type: "image/jpeg" }));
-      formData.append("upload_preset", "website");
-
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const jsonResponse = await response.json();
-
-      if (!response.ok || !jsonResponse.public_id) {
-        throw new Error(
-          `Cloudinary upload failed for one of the images: ${
-            jsonResponse.error?.message || "Unknown error"
-          }`
-        );
-      }
-
-      return jsonResponse;
-    });
-
-    const cloudinaryImages = await Promise.all(uploadImagesToCloudinary);
-    const imageUrls = cloudinaryImages.map((img) => ({
-      url: img.secure_url,
-      public_id: img.public_id,
-    }));
 
     if (parent) {
       const Parent: any = await Product.findById(parent);
@@ -84,10 +50,11 @@ export const createProduct = async (
           {
             $push: {
               subProducts: {
-                images: imageUrls,
+                sku,
+                color,
+                images,
                 sizes,
                 discount,
-                sold: 0,
               },
             },
           },
@@ -109,20 +76,20 @@ export const createProduct = async (
         questions,
         slug,
         category,
-        subCategories,
         benefits,
         ingredients,
+        subCategories,
         subProducts: [
           {
-            images: imageUrls,
+            sku,
+            color,
+            images,
             sizes,
             discount,
-            sold: 0,
           },
         ],
         featured,
       });
-
       await newProduct.save();
       return {
         message: "Product created successfully.",
@@ -132,7 +99,7 @@ export const createProduct = async (
   } catch (error: any) {
     console.log(error);
     return {
-      message: error.message || "An error occurred while creating the product.",
+      message: error,
       success: false,
     };
   }
@@ -158,9 +125,12 @@ export const deleteProduct = async (productId: string) => {
   }
 };
 
+// update single product for admin
 export const updateProduct = async (
   productId: string,
-  sizes: Array<{ qty: number; price: number }>,
+  sku: string,
+  color: string,
+  sizes: Array<{ size: string; qty: string; price: string }>,
   discount: number,
   name: string,
   description: string,
@@ -177,18 +147,23 @@ export const updateProduct = async (
     const product = await Product.findOne({
       _id: productId,
     });
+
     if (!product) {
       return {
         message:
           "Product not found or you don't have permission to edit this product.",
       };
     }
+
     if (!product.color) {
       product.color = {};
     }
+
     product.name = name;
     product.slug = slugify(name);
-    product.sizes = sizes;
+    product.subProducts[0].sku = sku;
+    product.subProducts[0].color.color = color;
+    product.subProducts[0].sizes = sizes;
     product.subProducts[0].discount = discount;
     product.description = description;
     product.brand = brand;
@@ -238,6 +213,7 @@ export const getSingleProductById = async (
         description: product.description,
         longDescription: product.longDescription,
         slug: product.slug,
+        sku: product.subProducts[style].sku,
         brand: product.brand,
         category: product.category,
         subCategories: product.subCategories,
@@ -297,7 +273,7 @@ export const getEntireProductById = async (id: string) => {
 export const getParentsandCategories = async () => {
   try {
     await connectToDatabase();
-    const results = await Product.find().select("name subProducts").lean();
+    const results = await Product.find().select("_id name").lean();
     const categories = await Category.find().lean();
     return {
       success: true,
