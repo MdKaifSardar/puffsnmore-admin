@@ -74,7 +74,7 @@ export default function DashboardLayout({
         {(isSidebarOpen || isLargeScreen) && (
           <div className="h-full flex flex-col">
             <Logo />
-            <nav className="flex-1">
+            <nav className="flex flex-col gap-[2px] justify-start w-full">
               {navItems.map(
                 (item: {
                   name: string;
@@ -84,7 +84,7 @@ export default function DashboardLayout({
                   <Link
                     key={item.name}
                     href={item.link}
-                    className={`flex items-center gap-3 p-3 rounded-md transition-colors ${
+                    className={`flex items-center gap-3 px-3 py-[.5rem] rounded-md transition-colors ${
                       pathname === item.link
                         ? "bg-gray-900"
                         : "hover:bg-gray-700"
@@ -118,7 +118,7 @@ export default function DashboardLayout({
 
       {/* Main Content */}
       <main className="w-full flex-1 flex flex-col h-full ">
-        <div className=" w-full flex flex-col justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center">
           {children}
         </div>
       </main>

@@ -60,26 +60,26 @@ export const navItems = [
     ),
     link: "/admin/dashboard/subCategories",
   },
-  {
-    name: "Order Analytics",
-    icon: <VscGraph size={20} />,
-    link: "/admin/dashboard/analytics/order",
-  },
+  // {
+  //   name: "Order Analytics",
+  //   icon: <VscGraph size={20} />,
+  //   link: "/admin/dashboard/analytics/order",
+  // },
   {
     name: "Website Banners",
     icon: <FaRegRectangleList size={20} />,
     link: "/admin/dashboard/banners/website",
   },
-  {
-    name: "App Banners",
-    icon: <FaRegRectangleList size={20} />,
-    link: "/admin/dashboard/banners/app",
-  },
-  {
-    name: "TopBars",
-    icon: <FaRegRectangleList size={20} />,
-    link: "/admin/dashboard/topbars",
-  },
+  // {
+  //   name: "App Banners",
+  //   icon: <FaRegRectangleList size={20} />,
+  //   link: "/admin/dashboard/banners/app",
+  // },
+  // {
+  //   name: "TopBars",
+  //   icon: <FaRegRectangleList size={20} />,
+  //   link: "/admin/dashboard/topbars",
+  // },
   {
     name: "Home Screen Offers",
     icon: <FaRegRectangleList size={20} />,

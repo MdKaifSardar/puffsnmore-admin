@@ -28,10 +28,12 @@ const VendorCouponsPage = () => {
     fetchAllCoupons();
   }, []);
   return (
-    <div className="gap-[2rem] flex flex-col justify-center items-center h-git w-[70%]">
+    <div className="gap-[2rem] flex flex-col justify-center items-center w-full px-4 sm:px-6 lg:px-8">
       <ToastContainer />
       <CreateCoupon setCoupons={setData} />
-      <ListAllVendorCoupons coupons={data} setCoupons={setData} />
+      <div className="w-full max-w-4xl">
+        <ListAllVendorCoupons coupons={data} setCoupons={setData} />
+      </div>
     </div>
   );
 };

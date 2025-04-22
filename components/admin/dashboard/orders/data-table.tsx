@@ -267,119 +267,98 @@ export default function AllOrdersTable({
   }, [searchOrderText, rows]);
 
   return (
-    <>
-      <div className="">
-        <h1 className="text-black font-bold text-2xl">
-          Total Orders - {rows?.length}
-        </h1>
-        <div className="p-4">
-          <div className="flex gap-[10px]">
-            <div className="flex flex-col w-1/2">
-              <label className="text-sm text-gray-700">
-                Search Order By ID
-              </label>
-              <input
-                type="text"
-                value={searchOrderText}
-                onChange={(e) => setSearchOrderText(e.target.value)}
-                className="p-2 mt-2 border border-gray-300 rounded-md bg-gray-100"
-                placeholder="Enter order ID"
-              />
-            </div>
-
-            <div className="flex flex-col w-1/4">
-              <label className="text-sm text-gray-700">Order Range</label>
-              <select
-                value={range}
-                onChange={(e) => setRange(e.target.value)}
-                className="p-2 mt-2 border border-gray-300 rounded-md bg-gray-100"
-              >
-                <option value="all">All Orders</option>
-                <option value="today">Today</option>
-                <option value="today_and_yesterday">Today and Yesterday</option>
-                <option value="2d">Last 2 Days</option>
-                <option value="7d">Last 7 Days</option>
-                <option value="15d">Last 15 Days</option>
-                <option value="30d">Last 30 Days</option>
-                <option value="2m">Last 2 Months</option>
-                <option value="5m">Last 5 Months</option>
-                <option value="10m">Last 10 Months</option>
-                <option value="12m">Last 12 Months</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col w-1/4">
-              <label className="text-sm text-gray-700">
-                Order Payment Status
-              </label>
-              <select
-                value={isPaid}
-                onChange={(e) => setIsPaid(e.target.value)}
-                className="p-2 mt-2 border border-gray-300 rounded-md bg-gray-100"
-              >
-                <option value="-">Order Payment Status</option>
-                <option value="paid">Paid</option>
-                <option value="unPaid">Not Paid</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col w-1/4">
-              <label className="text-sm text-gray-700">
-                Order Payment Method
-              </label>
-              <select
-                value={paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="p-2 mt-2 border border-gray-300 rounded-md bg-gray-100"
-              >
-                <option value="-">Order Payment Method</option>
-                <option value="cash">COD</option>
-                <option value="RazorPay">RazorPay</option>
-              </select>
-            </div>
+    <div className="w-full overflow-hidden">
+      <h1 className="text-black font-bold text-2xl">
+        Total Orders - {rows?.length}
+      </h1>
+      <div className="p-4">
+        <div className="flex gap-[10px]">
+          <div className="flex flex-col w-1/2">
+            <label className="text-sm text-gray-700">Search Order By ID</label>
+            <input
+              type="text"
+              value={searchOrderText}
+              onChange={(e) => setSearchOrderText(e.target.value)}
+              className="p-2 mt-2 border border-gray-300 rounded-md bg-gray-100"
+              placeholder="Enter order ID"
+            />
           </div>
-        </div>
 
-        <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-          <div className="flex justify-between items-center px-5 py-3 bg-blue-600 text-white rounded-t-lg">
-            <h2 className="text-lg font-semibold">Orders</h2>
+          <div className="flex flex-col w-1/4">
+            <label className="text-sm text-gray-700">Order Range</label>
+            <select
+              value={range}
+              onChange={(e) => setRange(e.target.value)}
+              className="p-2 mt-2 border border-gray-300 rounded-md bg-gray-100"
+            >
+              <option value="all">All Orders</option>
+              <option value="today">Today</option>
+              <option value="today_and_yesterday">Today and Yesterday</option>
+              <option value="2d">Last 2 Days</option>
+              <option value="7d">Last 7 Days</option>
+              <option value="15d">Last 15 Days</option>
+              <option value="30d">Last 30 Days</option>
+              <option value="2m">Last 2 Months</option>
+              <option value="5m">Last 5 Months</option>
+              <option value="10m">Last 10 Months</option>
+              <option value="12m">Last 12 Months</option>
+            </select>
           </div>
-          <table className="min-w-full table-auto">
-            <thead>
-              <tr className="bg-[#006081] text-white">
-                <th className="p-2"></th>
-                <th className="p-2 text-left">Order</th>
-                <th className="p-2 text-left">New</th>
-                <th className="p-2 text-right">Payment Method</th>
-                <th className="p-2 text-right">Paid</th>
-                <th className="p-2 text-right">Coupon</th>
-                <th className="p-2 text-right">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(searchOrderText.length === 24 ? filteredRowsByText : rows)?.map(
-                (row) => (
-                  <tr key={row._id} className="border-b">
-                    <td className="p-2"></td>
-                    <td className="p-2 text-left">
-                      <b className="text-base">{row.order}</b>
-                    </td>
-                    <td className="p-2 text-left">{row.new ? "Yes" : "No"}</td>
-                    <td className="p-2 text-right">{row.paymentMethod}</td>
-                    <td className="p-2 text-right">
-                      {row.paid ? "Yes" : "No"}
-                    </td>
-                    <td className="p-2 text-right">
-                      {row.coupon ? "Yes" : "No"}
-                    </td>
-                    <td className="p-2 text-right">{row.total}</td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
+
+          <div className="flex flex-col w-1/4">
+            <label className="text-sm text-gray-700">
+              Order Payment Status
+            </label>
+            <select
+              value={isPaid}
+              onChange={(e) => setIsPaid(e.target.value)}
+              className="p-2 mt-2 border border-gray-300 rounded-md bg-gray-100"
+            >
+              <option value="-">Order Payment Status</option>
+              <option value="paid">Paid</option>
+              <option value="unPaid">Not Paid</option>
+            </select>
+          </div>
         </div>
       </div>
-    </>
+
+      <div className="w-full bg-white shadow-lg rounded-lg">
+        <div className="flex justify-between items-center px-5 py-3 bg-blue-600 text-white rounded-t-lg">
+          <h2 className="text-lg font-semibold">Orders</h2>
+        </div>
+        <table className="w-full table-auto">
+          <thead>
+            <tr className="bg-[#006081] text-white">
+              <th className="p-2"></th>
+              <th className="p-2 text-left">Order</th>
+              <th className="p-2 text-left">New</th>
+              <th className="p-2 text-right">Payment Method</th>
+              <th className="p-2 text-right">Paid</th>
+              <th className="p-2 text-right">Coupon</th>
+              <th className="p-2 text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(searchOrderText.length === 24 ? filteredRowsByText : rows)?.map(
+              (row) => (
+                <tr key={row._id} className="border-b">
+                  <td className="p-2"></td>
+                  <td className="p-2 text-left">
+                    <b className="text-base">{row.order}</b>
+                  </td>
+                  <td className="p-2 text-left">{row.new ? "Yes" : "No"}</td>
+                  <td className="p-2 text-right">{row.paymentMethod}</td>
+                  <td className="p-2 text-right">{row.paid ? "Yes" : "No"}</td>
+                  <td className="p-2 text-right">
+                    {row.coupon ? "Yes" : "No"}
+                  </td>
+                  <td className="p-2 text-right">{row.total}</td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }

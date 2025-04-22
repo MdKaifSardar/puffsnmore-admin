@@ -69,7 +69,7 @@ const CreateCoupon = ({ setCoupons }: { setCoupons: any }) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center items-center w-full h-fit">
+    <div className="relative flex flex-col justify-center items-center w-full h-fit px-4 sm:px-6 lg:px-8">
       {loading && (
         <div className="absolute inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-10">
           <div className="text-white">Loading...</div>
@@ -77,9 +77,9 @@ const CreateCoupon = ({ setCoupons }: { setCoupons: any }) => {
       )}
       <form
         onSubmit={handleSubmit}
-        className="w-full flex flex-col justify-center p-6 bg-white rounded-lg shadow-lg"
+        className="w-full max-w-md flex flex-col justify-center p-6 bg-white rounded-lg shadow-lg"
       >
-        <h2 className="text-xl font-bold mb-4">Create a Coupon</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">Create a Coupon</h2>
         <div className="mb-4">
           <label className="block text-sm font-semibold text-gray-700">
             Coupon Name
@@ -130,7 +130,7 @@ const CreateCoupon = ({ setCoupons }: { setCoupons: any }) => {
         </div>
         <button
           type="submit"
-          className="mx-auto w-fit py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
+          className="mx-auto w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
         >
           Add Coupon
         </button>
