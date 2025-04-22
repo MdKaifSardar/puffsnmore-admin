@@ -65,9 +65,9 @@ const SignInPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center">
-        <div className="">
-          <h1 className="text-3xl font-bold">Admin Sign In</h1>
+      <div className="flex justify-center items-center h-fit bg-gray-100">
+        <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+          <h1 className="text-2xl md:text-3xl font-bold text-center mb-6">Admin Sign In</h1>
           {failureMessage.visible && (
             <Notification color="red" title="Error!" mt={"md"}>
               {failureMessage.message}
@@ -90,24 +90,21 @@ const SignInPage = () => {
               onSubmit={form.onSubmit((values) => {
                 handleSubmit(values);
               })}
-              className="w-[500px]"
+              className="flex flex-col gap-4"
             >
               <TextInput
                 {...form.getInputProps("email")}
-                mt={"md"}
                 label="Email"
                 placeholder="Email"
                 required
               />
-
               <PasswordInput
                 {...form.getInputProps("password")}
                 label="Password"
                 placeholder="Password"
                 required
               />
-
-              <Button type="submit" mt={"md"}>
+              <Button type="submit" className="w-full">
                 {loading ? "Loading..." : "Sign In"}
               </Button>
             </form>
