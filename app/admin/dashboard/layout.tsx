@@ -66,7 +66,7 @@ export default function DashboardLayout({
         animate={{ x: isSidebarOpen ? 0 : "-100%" }}
         exit={{ x: "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className={`h-full z-[100] fixed lg:sticky bg-gray-800 text-white lg:w-[25%] xl:w-[20%] p-4 transition-transform md:translate-x-0 md:block ${
+        className={`min-h-screen h-screen lg:h-auto z-[100] fixed lg:relative bg-gray-800 text-white lg:w-[25%] xl:w-[20%] p-4 transition-transform md:translate-x-0 md:block ${
           isSidebarOpen ? "w-[80%]" : "w-0"
         } overflow-hidden`}
       >

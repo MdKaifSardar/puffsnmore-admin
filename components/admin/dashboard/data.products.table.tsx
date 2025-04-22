@@ -20,16 +20,19 @@ const ProductsDataTable = ({ products }: { products: any }) => {
 
   const handleDeleteProduct = async (productId: string) => {
     try {
-      await deleteProduct(productId).then((res) => {
-        if (res?.success) {
-          alert(res?.message);
-          router.refresh();
-        }
-      });
+      const res = await deleteProduct(productId);
+      if (res?.success) {
+        alert(res?.message || "Product deleted successfully.");
+        router.refresh();
+      } else {
+        alert(res?.message || "Failed to delete the product.");
+      }
     } catch (error: any) {
-      alert(error);
+      console.error("Error deleting product:", error);
+      alert("An unexpected error occurred while deleting the product.");
     }
   };
+
   const getProductDetails = async (id: string) => {
     try {
       await getSingleProductById(id)
@@ -140,21 +143,23 @@ const ProductsDataTable = ({ products }: { products: any }) => {
           className="mt-[10px] cursor-pointer"
           onClick={() => {
             modals.openConfirmModal({
-              title: "Delete product",
+              title: "Delete Product",
               centered: true,
               children: (
                 <Text size="sm">
-                  Are you sure you want to delete product? This action is
+                  Are you sure you want to delete this product? This action is
                   irreversible.
                 </Text>
               ),
               labels: {
-                confirm: "Delete product",
-                cancel: "No don't delete it",
+                confirm: "Delete Product",
+                cancel: "Cancel",
               },
               confirmProps: { color: "red" },
-              onCancel: () => console.log("Cancel"),
-              onConfirm: () => handleDeleteProduct(params.row.product_id),
+              onCancel: () => console.log("Product deletion cancelled."),
+              onConfirm: async () => {
+                await handleDeleteProduct(params.row.product_id);
+              },
             });
           }}
         >
@@ -172,16 +177,14 @@ const ProductsDataTable = ({ products }: { products: any }) => {
         .map((size: any) => `${size.size}: ₹${size.price}`)
         .join(", ");
       const sizeLabels = sizes.map((size: any) => size.size).join(", ");
-      // console.log(product.vendor);
       return {
         id: index + 1,
         productname: product.name,
         product_id: product._id,
-        image: product.subProducts[0].images[0].url,
-        category: product.category.name,
+        image: subProduct.images?.[0]?.url || "", // Add null check for images
+        category: product.category?.name || "Unknown", // Add null check for category
         price: sizePrices,
         sizes: sizeLabels,
-        // vendor: product?.vendor?.name || "-",
         featured: product?.featured,
         view: "-",
         edit: "-",

@@ -147,7 +147,7 @@ const CreateProductPage = () => {
         formData.append("upload_preset", "website");
         try {
           const uploadResponse = await fetch(
-            `https://api.cloudinary.com/v1_1/dtxh3ew7s/image/upload`,
+            `https://api.cloudinary.com/v1_1/dvmbuktx3/image/upload`,
             {
               method: "POST",
               body: formData,
@@ -176,7 +176,7 @@ const CreateProductPage = () => {
 
         try {
           const uploadResponse = await fetch(
-            `https://api.cloudinary.com/v1_1/dtxh3ew7s/image/upload`,
+            `https://api.cloudinary.com/v1_1/dvmbuktx3/image/upload`,
             {
               method: "POST",
               body: colorFormData,
@@ -303,6 +303,7 @@ const CreateProductPage = () => {
   const addBenefit = () => form.insertListItem("benefits", { name: "" });
   const addDetail = () =>
     form.insertListItem("details", { name: "", value: "" });
+  const addIngredient = () => form.insertListItem("ingredients", { name: "" });
 
   useEffect(() => {
     console.log(form.values.parent);
@@ -333,9 +334,9 @@ const CreateProductPage = () => {
   }, [form.values.parent]);
 
   return (
-    <div>
+    <div className="mb-[2rem] flex flex-col justify-center items-center w-full h-fit">
       <div className="titleStyle">Create a Product</div>
-      <Box pos="relative">
+      <Box pos="relative" className="w-full flex flex-col justify-center items-center">
         {loading && (
           <LoadingOverlay
             visible={loading}
@@ -348,7 +349,7 @@ const CreateProductPage = () => {
           onSubmit={form.onSubmit((values: any) => {
             handleSubmit(values);
           })}
-          className="w-[80%]"
+          className="flex flex-col justify-center w-[80%]"
         >
           <TextInput
             {...form.getInputProps("name")}
@@ -440,37 +441,20 @@ const CreateProductPage = () => {
 
           <div>
             <Text size="md" mb="xs">
-              Sizes
+              Quantity and Price
             </Text>
-            {form.values.sizes.map((item, index) => (
-              <Group key={index} mt="xs">
-                <TextInput
-                  placeholder="Size"
-                  {...form.getInputProps(`sizes.${index}.size`)}
-                  required
-                />
-                <NumberInput
-                  placeholder="Quantity"
-                  {...form.getInputProps(`sizes.${index}.qty`)}
-                  required
-                />
-                <NumberInput
-                  placeholder="Price"
-                  {...form.getInputProps(`sizes.${index}.price`)}
-                  required
-                />
-                <Button variant="outline" onClick={addSize}>
-                  <IoAdd size={20} color="blue" />
-                </Button>
-                <Button
-                  color="red"
-                  variant="outline"
-                  onClick={() => form.removeListItem("sizes", index)}
-                >
-                  <MdDelete color="red" size={20} />
-                </Button>
-              </Group>
-            ))}
+            <Group mt="xs">
+              <NumberInput
+                placeholder="Quantity"
+                {...form.getInputProps("sizes.0.qty")}
+                required
+              />
+              <NumberInput
+                placeholder="Price"
+                {...form.getInputProps("sizes.0.price")}
+                required
+              />
+            </Group>
           </div>
 
           {/* Repeat similar blocks for Benefits, Ingredients, Questions, and Details */}
@@ -493,6 +477,32 @@ const CreateProductPage = () => {
                   color="red"
                   variant="outline"
                   onClick={() => form.removeListItem("benefits", index)}
+                >
+                  <MdDelete color="red" size={20} />
+                </Button>
+              </Group>
+            ))}
+          </div>
+
+          {/* Ingredients Section */}
+          <div>
+            <Text size="md" mb="xs">
+              Ingredients
+            </Text>
+            {form.values.ingredients.map((item, index) => (
+              <Group key={index} mt="xs">
+                <TextInput
+                  placeholder="Ingredient"
+                  {...form.getInputProps(`ingredients.${index}.name`)}
+                  required
+                />
+                <Button variant="outline" onClick={addIngredient}>
+                  <IoAdd size={20} color="blue" />
+                </Button>
+                <Button
+                  color="red"
+                  variant="outline"
+                  onClick={() => form.removeListItem("ingredients", index)}
                 >
                   <MdDelete color="red" size={20} />
                 </Button>

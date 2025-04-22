@@ -30,11 +30,11 @@ const AdminDashboardPage = async () => {
 
   return (
     <div className="w-full px-[1rem] ">
-      <div className="my-[20px]">
+      <div className="w-full my-[20px]">
         <DashboardCard data={data} />
       </div>
       <div className="titleStyle">Orders</div>
-      <div className="flex justify-evenly items-center my-[20px]">
+      <div className="flex md:flex-row flex-col justify-evenly items-center my-[20px]">
         <div className="h-[100px] gap-[10px] border-2 border-gray-400 p-[10px] w-[200px] shadow-2xl flex items-center justify-center rounded-3xl">
           <HiCurrencyRupee size={100} /> ₹ {allOrdersData?.totalSales} Total
           Sales
