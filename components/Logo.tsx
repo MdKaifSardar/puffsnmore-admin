@@ -7,7 +7,7 @@ const Logo = () => {
     <div className="bg-transparent">
       <Link href="/" className="flex gap-[10px]">
         <Image
-          src={"/images/adminLogo.png"}
+          src="https://puffsnmore.com/wp-content/uploads/2025/02/2.png"
           alt="logo"
           height={30}
           width={35}
@@ -15,7 +15,7 @@ const Logo = () => {
         />
         <h2 className="text-center">
           <span className="font-bold text-[1.5rem] font-sans uppercase text-white tracking-[1px] ">
-            Pal and co
+            Puffsnmore
           </span>
         </h2>
       </Link>

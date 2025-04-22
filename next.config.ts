@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // Disables ESLint checks during builds (e.g., on Vercel)
   },
+  images: {
+    domains: ["puffsnmore.com"], // Allow images from puffsnmore.com
+  },
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,

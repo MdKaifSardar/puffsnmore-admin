@@ -29,7 +29,7 @@ const AdminDashboardPage = async () => {
   );
 
   return (
-    <div className="container">
+    <div className="w-full px-[1rem] ">
       <div className="my-[20px]">
         <DashboardCard data={data} />
       </div>
@@ -99,7 +99,7 @@ const AdminDashboardPage = async () => {
           </TableContainer>
         </div>
       </div>
-      <ProductData />
+      {/* <ProductData /> */}
       <LowStockProducts />
       <OutOfStockProducts />
     </div>
